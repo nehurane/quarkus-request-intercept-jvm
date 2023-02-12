@@ -1,6 +1,15 @@
 # quarkus-request-intercept-jvm
 Intercept every request before it reaches to REST resource
-## How to deploy and run on minikube
+
+# How to build image
+Start minikube. Type command 
+```
+eval $(minikube docker-env)
+```
+Build docker image using ./src/main/docker/Dockerfile.jvm
+
+
+# How to deploy and run on minikube
 Start the minikube and up all the resources. On terminal go to vidar-sandbox
 ```
 kubectl apply -f ./k8-resources/quarkus-deployment.yml -n default

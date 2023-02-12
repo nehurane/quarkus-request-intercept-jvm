@@ -33,11 +33,11 @@ dependencies {
     implementation("io.quarkus:quarkus-rest-client-reactive-jackson")
     implementation("io.quarkus:quarkus-kubernetes")
     implementation("io.quarkus:quarkus-container-image-jib")
+    implementation("io.quarkus:quarkus-vertx")
     implementation("io.smallrye.reactive:smallrye-mutiny-vertx-web-client")
-    implementation 'com.bskyb.internettv.umv:umv-client:11.3.4'
 }
 
-group 'uk.sky.sas'
+group 'com.example.sas'
 version '1.0-SNAPSHOT'
 
 java {
