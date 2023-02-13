@@ -10,9 +10,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
-import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -22,9 +20,6 @@ import java.net.http.HttpResponse;
 @RegisterRestClient
 @RegisterClientHeaders
 public class RequestFilters {
-
-    @Inject
-    UriInfo uriInfo;
 
     @Inject
     Logger logger;
@@ -43,19 +38,21 @@ public class RequestFilters {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
 
-        logger.info("Base URI >> " + uriInfo.getBaseUri().toString() + " and base URI path is " + uriInfo.getBaseUri().getPath());
-        logger.info("Absolute Path >> " + uriInfo.getAbsolutePath().toString() + " and absolute path is " + uriInfo.getAbsolutePath().getPath());
+        logger.info("Base URI >> " + requestContext.getUriInfo().getBaseUri().toString() + 
+                " and path is " + requestContext.getUriInfo().getBaseUri().getPath());
+        logger.info("Absolute Path >> " + requestContext.getUriInfo().getAbsolutePath().toString() + 
+                " and path is " + requestContext.getUriInfo().getAbsolutePath().getPath());
 
         //proceed with the request
-        var requestUri = uriInfo.getRequestUri().getPath();
+        var requestUri = requestContext.getUriInfo().getRequestUri().getPath();
         logger.info("Request URI is " + requestUri);
 
         this.httpClient
                 .sendAsync(HttpRequest.newBuilder()
                                 .method(requestContext.getMethod(),
                                         HttpRequest.BodyPublishers.ofString(requestContext.getEntityStream().toString()))
-                                .uri(URI.create("http://localhost:8081/quarkus-hello"))
-                                //.uri(uriInfo.getAbsolutePath())
+                                //.uri(URI.create("http://localhost:8081/quarkus-hello"))
+                                .uri(requestContext.getUriInfo().getAbsolutePath())
                                 .header("x-skyott-usertoken", "sometoken")
                                 .header("hosueholdId", "3r34344q1fqf4")
                                 .build(),
