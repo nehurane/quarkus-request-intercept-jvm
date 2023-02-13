@@ -1,4 +1,4 @@
-package uk.sky.sas.exception;
+package com.example.sas.exception;
 
 public class ResponseExceptionMapper extends Exception {
     
