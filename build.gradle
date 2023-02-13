@@ -33,6 +33,7 @@ dependencies {
     implementation("io.quarkus:quarkus-rest-client-reactive-jackson")
     implementation("io.quarkus:quarkus-kubernetes")
     implementation("io.quarkus:quarkus-container-image-jib")
+    implementation 'io.quarkus:quarkus-vertx-web:2.16.2.Final'
     implementation("io.quarkus:quarkus-vertx")
     implementation("io.smallrye.reactive:smallrye-mutiny-vertx-web-client")
 }
