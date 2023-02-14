@@ -35,17 +35,13 @@ public class RequestFilters {
     @ServerRequestFilter
     public Response requestFilter(ContainerRequestContext requestContext) throws Exception {
 
-        logger.info("Check AUTH Filter --> Request Context " + requestContext.toString());
-
         if (StringUtil.isNullOrEmpty(requestContext.getHeaders().getFirst(USER_TOKEN_UMV))) {
             logger.error("UMV token is missing.");
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
 
-        logger.info("Base URI >> " + requestContext.getUriInfo().getBaseUri().toString() + " " +
-                "and URI path is " + requestContext.getUriInfo().getBaseUri().getPath());
         logger.info("Absolute Path >> " + requestContext.getUriInfo().getAbsolutePath().toString() + " " +
-                "and URIpath is " + requestContext.getUriInfo().getAbsolutePath().getPath());
+                "and URI is " + requestContext.getUriInfo().getAbsolutePath().getPath());
 
         client.getAbs(requestContext.getUriInfo().getAbsolutePath().toString())
                 .putHeader(USER_TOKEN_UMV, "q3445334235425345")
